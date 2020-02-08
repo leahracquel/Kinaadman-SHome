@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Control">
+        <menu>
+            <item
+                android:id="@+id/nav_home"
+                android:title="Manual" />
+            <item
+                android:id="@+id/nav_gallery"
+                android:title="Automate" />
+        </menu>
+    </item>
+
+    <item android:title="Monitor">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:title="Power Consumption" />
+            <item
+                android:id="@+id/nav_send"
+                android:title="Consumption Graph" />
+        </menu>
+    </item>
+
+</menu>
