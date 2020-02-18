@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1093985352717",
+    "firebase_url": "https://iot-basedhomeauto-monitoring.firebaseio.com",
+    "project_id": "iot-basedhomeauto-monitoring",
+    "storage_bucket": "iot-basedhomeauto-monitoring.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093985352717:android:b209b3f67adb3340e8a944",
+        "android_client_info": {
+          "package_name": "com.example.smarthome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093985352717-a00gcdnrcc2kftnr6mr58qa3ttm68s0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBybYj_ztYLtUiskb6hkKfmqJwy6gL21sI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093985352717-a00gcdnrcc2kftnr6mr58qa3ttm68s0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

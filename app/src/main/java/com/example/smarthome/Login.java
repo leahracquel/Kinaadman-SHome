@@ -1,5 +1,6 @@
 package com.example.smarthome;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class Login extends AppCompatActivity {
 
     private EditText username;
@@ -17,6 +24,8 @@ public class Login extends AppCompatActivity {
     private Button login;
     private Intent dashboard;
     private TextView empty_error;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,13 @@ public class Login extends AppCompatActivity {
         setupListeners();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getDelegate().onStart();
+        currentUser = mAuth.getCurrentUser();
+    }
+
     public void initializeObjects() {
         username = findViewById(R.id.txt_username);
         password = findViewById(R.id.txt_password);
@@ -35,7 +51,8 @@ public class Login extends AppCompatActivity {
         empty_error = findViewById(R.id.txt_emptyfields);
 
         dashboard = new Intent(getApplicationContext(),Dashboard.class);
-        dashboard.putExtra("username",username.getText().toString());
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     public void setupListeners() {
@@ -48,15 +65,29 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginUser() {
-        String user = username.getText().toString().trim();
+        String email = username.getText().toString().trim();
         String pass = password.getText().toString().trim();
 
-        if(!user.isEmpty() && !pass.isEmpty()) {
+        if(!email.isEmpty() && !pass.isEmpty()) {
             empty_error.setVisibility(View.INVISIBLE);
-            startActivity(dashboard);
-            finish();
+            mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()) {
+                                currentUser = mAuth.getCurrentUser();
+                                startActivity(dashboard);
+                                finish();
+                            } else {
+                                empty_error.setText("Incorrect email or password.");
+                                empty_error.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+            );
         } else {
+            empty_error.setText("Please fill up fields.");
             empty_error.setVisibility(View.VISIBLE);
         }
     }
+
 }
