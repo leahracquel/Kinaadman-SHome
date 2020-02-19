@@ -1,15 +1,20 @@
 package com.example.smarthome.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.smarthome.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,20 +34,19 @@ public class HomeFragment extends Fragment {
     private Switch outlet3;
     private Switch outlet4;
     private DatabaseReference automatic;
+    private DatabaseReference outlet4_auto;
     private DatabaseReference manual;
+    private String l1_automatic, l2_automatic, l3_automatic, outlet4_automatic;
+
+    public HomeFragment () {}
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_control, container, false);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {}
-        });
 
         initializeObjects();
         setupListener();
+
         return root;
     }
 
@@ -57,6 +61,19 @@ public class HomeFragment extends Fragment {
 
         manual = FirebaseDatabase.getInstance().getReference("ManualMode");
         automatic = FirebaseDatabase.getInstance().getReference("AutoMode");
+        outlet4_auto = FirebaseDatabase.getInstance().getReference("AutoMode").child("Outlet4");
+
+        getLight1_Manual();
+        getLight2_Manual();
+        getLight3_Manual();
+        getOutlet1_Manual();
+        getOutlet2_Manual();
+        getOutlet3_Manual();
+        getOutlet4_Manual();
+        getLight1_Automatic();
+        getLight2_Automatic();
+        getLight3_Automatic();
+        getOutlet4_Automatic();
     }
 
     public void setupListener() {
@@ -64,12 +81,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    /*
-                    if (automatic.child("Light1").getValue() == "on") {
-                        // Toast to set automatic child to off
+                    if (l1_automatic.equals("on")) {
+                        Toast.makeText(getActivity(),"Set Light1 Automate to off.",Toast.LENGTH_SHORT).show();
                         automatic.child("Light1").setValue("off");
                     }
-                    */
                     manual.child("Light1").setValue("on");
                 } else {
                     manual.child("Light1").setValue("off");
@@ -81,12 +96,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    /*
-                    if (automatic.child("Light2").getValue() == "on") {
-                        // Toast to set automatic child to off
+                    if (l2_automatic.equals("on")) {
+                        Toast.makeText(getActivity(),"Set Light2 Automate to off.",Toast.LENGTH_SHORT).show();
                         automatic.child("Light2").setValue("off");
                     }
-                    */
                     manual.child("Light2").setValue("on");
                 } else {
                     manual.child("Light2").setValue("off");
@@ -98,12 +111,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    /*
-                    if (automatic.child("Light3").getValue() == "on") {
-                        // Toast to set automatic child to off
+                    if (l3_automatic.equals("on")) {
+                        Toast.makeText(getActivity(),"Set Light3 Automate to off.",Toast.LENGTH_SHORT).show();
                         automatic.child("Light3").setValue("off");
                     }
-                    */
                     manual.child("Light3").setValue("on");
                 } else {
                     manual.child("Light3").setValue("off");
@@ -148,17 +159,186 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    /*
-                    if (automatic.child("Outlet4").child("Set_Status").getValue() == "on") {
-                        // Toast to set automatic child to off
-                        automatic.child("Outlet4").child("Set_Status").setValue("off");
+                    if (outlet4_automatic.equals("on")) {
+                        Toast.makeText(getActivity(),"Set Outlet4 Automate to off.",Toast.LENGTH_SHORT).show();
+                        outlet4_auto.child("Set_Status").setValue("off");
                     }
-                    */
                     manual.child("Outlet4").setValue("on");
                 } else {
                     manual.child("Outlet4").setValue("off");
                 }
             }
+        });
+    }
+
+    public void getLight1_Automatic() {
+
+        automatic.child("Light1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                l1_automatic = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getLight2_Automatic() {
+
+        automatic.child("Light2").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                l2_automatic = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getLight3_Automatic() {
+
+        automatic.child("Light3").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                l3_automatic = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getOutlet4_Automatic() {
+
+        outlet4_auto.child("Set_Status").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                outlet4_automatic = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getLight1_Manual() {
+
+        manual.child("Light1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue().toString().equals("on")) {
+                    light1.setChecked(true);
+                } else {
+                    light1.setChecked(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getLight2_Manual() {
+
+        manual.child("Light2").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue().toString().equals("on")) {
+                    light2.setChecked(true);
+                } else {
+                    light2.setChecked(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getLight3_Manual() {
+
+        manual.child("Light3").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue().toString().equals("on")) {
+                    light3.setChecked(true);
+                } else {
+                    light3.setChecked(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getOutlet1_Manual() {
+
+        manual.child("Outlet1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue().toString().equals("on")) {
+                    outlet1.setChecked(true);
+                } else {
+                    outlet1.setChecked(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getOutlet2_Manual() {
+
+        manual.child("Outlet2").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue().toString().equals("on")) {
+                    outlet2.setChecked(true);
+                } else {
+                    outlet2.setChecked(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getOutlet3_Manual() {
+
+        manual.child("Outlet3").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue().toString().equals("on")) {
+                    outlet3.setChecked(true);
+                } else {
+                    outlet3.setChecked(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void getOutlet4_Manual() {
+
+        manual.child("Outlet4").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue().toString().equals("on")) {
+                    outlet4.setChecked(true);
+                } else {
+                    outlet4.setChecked(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 }

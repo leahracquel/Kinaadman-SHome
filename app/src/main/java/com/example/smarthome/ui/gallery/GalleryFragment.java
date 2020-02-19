@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Switch;
 
 import com.example.smarthome.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,6 +21,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.smarthome.R;
+import com.google.firebase.database.ValueEventListener;
 
 public class GalleryFragment extends Fragment {
 
@@ -124,5 +128,117 @@ public class GalleryFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public String getLight1_Manual() {
+        final String[] light1_status = new String[1];
+
+        manual.child("Light1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                light1_status[0] = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
+        return light1_status[0];
+    }
+
+    public String getLight2_Manual() {
+        final String[] light2_status = new String[1];
+
+        manual.child("Light2").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                light2_status[0] = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
+        return light2_status[0];
+    }
+
+    public String getLight3_Manual() {
+        final String[] light3_status = new String[1];
+
+        manual.child("Light3").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                light3_status[0] = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
+        return light3_status[0];
+    }
+
+    public String getOutlet1_Manual() {
+        final String[] light1_status = new String[1];
+
+        manual.child("Outlet1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                light1_status[0] = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
+        return light1_status[0];
+    }
+
+    public String getOutlet2_Manual() {
+        final String[] light1_status = new String[1];
+
+        manual.child("Outlet2").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                light1_status[0] = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
+        return light1_status[0];
+    }
+
+    public String getOutlet3_Manual() {
+        final String[] light1_status = new String[1];
+
+        manual.child("Outlet3").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                light1_status[0] = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
+        return light1_status[0];
+    }
+
+    public String getOutlet4_Manual() {
+        final String[] light1_status = new String[1];
+
+        manual.child("Outlet4").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                light1_status[0] = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
+        return light1_status[0];
     }
 }
