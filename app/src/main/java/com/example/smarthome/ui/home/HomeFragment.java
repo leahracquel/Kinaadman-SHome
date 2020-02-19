@@ -64,9 +64,99 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
+                    /*
+                    if (automatic.child("Light1").getValue() == "on") {
+                        // Toast to set automatic child to off
+                        automatic.child("Light1").setValue("off");
+                    }
+                    */
                     manual.child("Light1").setValue("on");
                 } else {
                     manual.child("Light1").setValue("off");
+                }
+            }
+        });
+
+        light2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    /*
+                    if (automatic.child("Light2").getValue() == "on") {
+                        // Toast to set automatic child to off
+                        automatic.child("Light2").setValue("off");
+                    }
+                    */
+                    manual.child("Light2").setValue("on");
+                } else {
+                    manual.child("Light2").setValue("off");
+                }
+            }
+        });
+
+        light3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    /*
+                    if (automatic.child("Light3").getValue() == "on") {
+                        // Toast to set automatic child to off
+                        automatic.child("Light3").setValue("off");
+                    }
+                    */
+                    manual.child("Light3").setValue("on");
+                } else {
+                    manual.child("Light3").setValue("off");
+                }
+            }
+        });
+
+        outlet1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    manual.child("Outlet1").setValue("on");
+                } else {
+                    manual.child("Outlet1").setValue("off");
+                }
+            }
+        });
+
+        outlet2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    manual.child("Outlet2").setValue("on");
+                } else {
+                    manual.child("Outlet2").setValue("off");
+                }
+            }
+        });
+
+        outlet3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    manual.child("Outlet3").setValue("on");
+                } else {
+                    manual.child("Outlet3").setValue("off");
+                }
+            }
+        });
+
+        outlet4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    /*
+                    if (automatic.child("Outlet4").child("Set_Status").getValue() == "on") {
+                        // Toast to set automatic child to off
+                        automatic.child("Outlet4").child("Set_Status").setValue("off");
+                    }
+                    */
+                    manual.child("Outlet4").setValue("on");
+                } else {
+                    manual.child("Outlet4").setValue("off");
                 }
             }
         });
