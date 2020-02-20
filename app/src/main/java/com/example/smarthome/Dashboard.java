@@ -29,6 +29,7 @@ import android.widget.TextView;
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private DrawerLayout drawer;
 
     private TextView username;
 
@@ -38,7 +39,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -60,8 +61,33 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             case R.id.nav_home:
                 HomeFragment manual = new HomeFragment();
                 FragmentManager manager = getSupportFragmentManager();
+                drawer.closeDrawers();
                 manager.beginTransaction()
                         .replace(R.id.layout, manual)
+                        .commit();
+            break;
+            case R.id.nav_gallery:
+                GalleryFragment automate = new GalleryFragment();
+                FragmentManager manager = getSupportFragmentManager();
+                drawer.closeDrawers();
+                manager.beginTransaction()
+                        .replace(R.id.layout, automate)
+                        .commit();
+            break;
+            case R.id.nav_share:
+                ShareFragment powercon = new ShareFragment();
+                FragmentManager manager = getSupportFragmentManager();
+                drawer.closeDrawers();
+                manager.beginTransaction()
+                        .replace(R.id.layout, powercon)
+                        .commit();
+            break;
+            case R.id.nav_send:
+                SendFragment congraph = new SendFragment();
+                FragmentManager manager = getSupportFragmentManager();
+                drawer.closeDrawers();
+                manager.beginTransaction()
+                        .replace(R.id.layout, congraph)
                         .commit();
             break;
         }

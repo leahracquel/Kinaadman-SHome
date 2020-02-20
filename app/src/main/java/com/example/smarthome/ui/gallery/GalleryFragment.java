@@ -34,6 +34,8 @@ public class GalleryFragment extends Fragment {
     private DatabaseReference automatic;
     private DatabaseReference manual;
 
+    public GalleryFragment () {}
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =

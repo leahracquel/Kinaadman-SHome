@@ -32,6 +32,8 @@ public class SendFragment extends Fragment {
     private LineChartView lineChartView;
     private View root;
 
+    public SendFragment () {}
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         sendViewModel =
