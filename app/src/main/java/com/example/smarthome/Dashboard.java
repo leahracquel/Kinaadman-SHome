@@ -2,7 +2,10 @@ package com.example.smarthome;
 
 import android.os.Bundle;
 
+import com.example.smarthome.ui.gallery.GalleryFragment;
 import com.example.smarthome.ui.home.HomeFragment;
+import com.example.smarthome.ui.send.SendFragment;
+import com.example.smarthome.ui.share.ShareFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -68,25 +71,25 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             break;
             case R.id.nav_gallery:
                 GalleryFragment automate = new GalleryFragment();
-                FragmentManager manager = getSupportFragmentManager();
+                FragmentManager manager1 = getSupportFragmentManager();
                 drawer.closeDrawers();
-                manager.beginTransaction()
+                manager1.beginTransaction()
                         .replace(R.id.layout, automate)
                         .commit();
             break;
             case R.id.nav_share:
                 ShareFragment powercon = new ShareFragment();
-                FragmentManager manager = getSupportFragmentManager();
+                FragmentManager manager2 = getSupportFragmentManager();
                 drawer.closeDrawers();
-                manager.beginTransaction()
+                manager2.beginTransaction()
                         .replace(R.id.layout, powercon)
                         .commit();
             break;
             case R.id.nav_send:
                 SendFragment congraph = new SendFragment();
-                FragmentManager manager = getSupportFragmentManager();
+                FragmentManager manager3 = getSupportFragmentManager();
                 drawer.closeDrawers();
-                manager.beginTransaction()
+                manager3.beginTransaction()
                         .replace(R.id.layout, congraph)
                         .commit();
             break;

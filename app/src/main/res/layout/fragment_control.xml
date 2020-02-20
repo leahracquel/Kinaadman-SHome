@@ -116,7 +116,7 @@
         app:layout_constraintVertical_bias="0.61" />
 
     <Switch
-        android:id="@+id/sw_outlet4"
+        android:id="@+id/sw_outlet1"
         android:layout_width="77dp"
         android:layout_height="41dp"
         app:layout_constraintBottom_toBottomOf="parent"

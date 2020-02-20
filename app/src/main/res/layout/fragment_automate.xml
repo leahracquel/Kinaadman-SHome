@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.PlaceholderFragment">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView31"
@@ -50,8 +49,8 @@
         android:layout_width="93dp"
         android:layout_height="37dp"
         android:ems="10"
-        android:visibility="invisible"
         android:inputType="time"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.613"
@@ -84,7 +83,7 @@
         app:layout_constraintVertical_bias="0.21" />
 
     <Switch
-        android:id="@+id/sw_l1"
+        android:id="@+id/sw_al1"
         android:layout_width="77dp"
         android:layout_height="41dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -108,7 +107,7 @@
         app:layout_constraintVertical_bias="0.31" />
 
     <Switch
-        android:id="@+id/sw_l2"
+        android:id="@+id/sw_al2"
         android:layout_width="77dp"
         android:layout_height="41dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -132,7 +131,7 @@
         app:layout_constraintVertical_bias="0.41" />
 
     <Switch
-        android:id="@+id/sw_l3"
+        android:id="@+id/sw_al3"
         android:layout_width="77dp"
         android:layout_height="41dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -169,7 +168,7 @@
         app:layout_constraintVertical_bias="0.781" />
 
     <Switch
-        android:id="@+id/sw_outlet4"
+        android:id="@+id/sw_aoutlet4"
         android:layout_width="77dp"
         android:layout_height="41dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -198,13 +197,26 @@
         android:id="@+id/txt_day"
         android:layout_width="91dp"
         android:layout_height="43dp"
-        android:visibility="invisible"
         android:entries="@array/Days"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.7" />
+
+    <Button
+        android:id="@+id/btn_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SET"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.61"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

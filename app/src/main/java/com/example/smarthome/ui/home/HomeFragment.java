@@ -22,6 +22,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -45,7 +47,6 @@ public class HomeFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_control, container, false);
 
         initializeObjects();
-        setupListener();
 
         return root;
     }
@@ -63,6 +64,10 @@ public class HomeFragment extends Fragment {
         automatic = FirebaseDatabase.getInstance().getReference("AutoMode");
         outlet4_auto = FirebaseDatabase.getInstance().getReference("AutoMode").child("Outlet4");
 
+        getLight1_Automatic();
+        getLight2_Automatic();
+        getLight3_Automatic();
+        getOutlet4_Automatic();
         getLight1_Manual();
         getLight2_Manual();
         getLight3_Manual();
@@ -70,105 +75,8 @@ public class HomeFragment extends Fragment {
         getOutlet2_Manual();
         getOutlet3_Manual();
         getOutlet4_Manual();
-        getLight1_Automatic();
-        getLight2_Automatic();
-        getLight3_Automatic();
-        getOutlet4_Automatic();
-    }
 
-    public void setupListener() {
-        light1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if (l1_automatic.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Light1 Automate to off.",Toast.LENGTH_SHORT).show();
-                        automatic.child("Light1").setValue("off");
-                    }
-                    manual.child("Light1").setValue("on");
-                } else {
-                    manual.child("Light1").setValue("off");
-                }
-            }
-        });
-
-        light2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if (l2_automatic.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Light2 Automate to off.",Toast.LENGTH_SHORT).show();
-                        automatic.child("Light2").setValue("off");
-                    }
-                    manual.child("Light2").setValue("on");
-                } else {
-                    manual.child("Light2").setValue("off");
-                }
-            }
-        });
-
-        light3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if (l3_automatic.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Light3 Automate to off.",Toast.LENGTH_SHORT).show();
-                        automatic.child("Light3").setValue("off");
-                    }
-                    manual.child("Light3").setValue("on");
-                } else {
-                    manual.child("Light3").setValue("off");
-                }
-            }
-        });
-
-        outlet1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    manual.child("Outlet1").setValue("on");
-                } else {
-                    manual.child("Outlet1").setValue("off");
-                }
-            }
-        });
-
-        outlet2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    manual.child("Outlet2").setValue("on");
-                } else {
-                    manual.child("Outlet2").setValue("off");
-                }
-            }
-        });
-
-        outlet3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    manual.child("Outlet3").setValue("on");
-                } else {
-                    manual.child("Outlet3").setValue("off");
-                }
-            }
-        });
-
-        outlet4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if (outlet4_automatic.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Outlet4 Automate to off.",Toast.LENGTH_SHORT).show();
-                        outlet4_auto.child("Set_Status").setValue("off");
-                    }
-                    manual.child("Outlet4").setValue("on");
-                } else {
-                    manual.child("Outlet4").setValue("off");
-                }
-            }
-        });
+        setupListener();
     }
 
     public void getLight1_Automatic() {
@@ -339,6 +247,101 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    public void setupListener() {
+        light1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    if (l1_automatic.equals("on")) {
+                        Toast.makeText(getActivity(),"Set Light1 Automate to off.",Toast.LENGTH_SHORT).show();
+                        automatic.child("Light1").setValue("off");
+                    }
+                    manual.child("Light1").setValue("on");
+                } else {
+                    manual.child("Light1").setValue("off");
+                }
+            }
+        });
+
+        light2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    if (l2_automatic.equals("on")) {
+                        Toast.makeText(getActivity(),"Set Light2 Automate to off.",Toast.LENGTH_SHORT).show();
+                        automatic.child("Light2").setValue("off");
+                    }
+                    manual.child("Light2").setValue("on");
+                } else {
+                    manual.child("Light2").setValue("off");
+                }
+            }
+        });
+
+        light3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    if (l3_automatic.equals("on")) {
+                        Toast.makeText(getActivity(),"Set Light3 Automate to off.",Toast.LENGTH_SHORT).show();
+                        automatic.child("Light3").setValue("off");
+                    }
+                    manual.child("Light3").setValue("on");
+                } else {
+                    manual.child("Light3").setValue("off");
+                }
+            }
+        });
+
+        outlet1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    manual.child("Outlet1").setValue("on");
+                } else {
+                    manual.child("Outlet1").setValue("off");
+                }
+            }
+        });
+
+        outlet2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    manual.child("Outlet2").setValue("on");
+                } else {
+                    manual.child("Outlet2").setValue("off");
+                }
+            }
+        });
+
+        outlet3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    manual.child("Outlet3").setValue("on");
+                } else {
+                    manual.child("Outlet3").setValue("off");
+                }
+            }
+        });
+
+        outlet4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    if (outlet4_automatic != null && outlet4_automatic.equals("on")) {
+                        Toast.makeText(getActivity(),"Set Outlet4 Automate to off.",Toast.LENGTH_SHORT).show();
+                        outlet4_auto.child("Set_Status").setValue("off");
+                    }
+                    manual.child("Outlet4").setValue("on");
+                } else {
+                    manual.child("Outlet4").setValue("off");
+                }
+            }
         });
     }
 }
