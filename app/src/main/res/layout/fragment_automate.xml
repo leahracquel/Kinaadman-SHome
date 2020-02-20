@@ -11,6 +11,7 @@
         android:id="@+id/textView31"
         android:layout_width="68dp"
         android:layout_height="23dp"
+        android:visibility="invisible"
         android:text="Day"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +24,7 @@
         android:id="@+id/textView30"
         android:layout_width="68dp"
         android:layout_height="23dp"
+        android:visibility="invisible"
         android:text="End Time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,10 +46,11 @@
         app:layout_constraintVertical_bias="0.61" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/txt_starttime"
         android:layout_width="93dp"
         android:layout_height="37dp"
         android:ems="10"
+        android:visibility="invisible"
         android:inputType="time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,6 +159,7 @@
         android:id="@+id/textView7"
         android:layout_width="68dp"
         android:layout_height="23dp"
+        android:visibility="invisible"
         android:text="Start Time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -177,11 +181,12 @@
         tools:checked="false" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/txt_endtime"
         android:layout_width="93dp"
         android:layout_height="37dp"
         android:ems="10"
         android:inputType="time"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.613"
@@ -190,9 +195,10 @@
         app:layout_constraintVertical_bias="0.848" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/txt_day"
         android:layout_width="91dp"
         android:layout_height="43dp"
+        android:visibility="invisible"
         android:entries="@array/Days"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
