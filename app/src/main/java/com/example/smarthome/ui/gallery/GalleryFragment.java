@@ -104,7 +104,7 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    if (l1_manual.equals("on")) {
+                    if (l1_manual != null && l1_manual.equals("on")) {
                         Toast.makeText(getActivity(),"Set Light1 Manual to off.",Toast.LENGTH_SHORT).show();
                         manual.child("Light1").setValue("off");
                     }

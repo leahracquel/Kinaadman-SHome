@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -23,6 +25,10 @@ import lecho.lib.hellocharts.view.LineChartView;
 import com.example.smarthome.R;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +37,7 @@ public class SendFragment extends Fragment {
     private SendViewModel sendViewModel;
     private LineChartView lineChartView;
     private View root;
+    private WebView dummy;
 
     public SendFragment () {}
 
@@ -45,6 +52,20 @@ public class SendFragment extends Fragment {
         });
 
         lineChartView = root.findViewById(R.id.chart);
+        dummy = root.findViewById(R.id.wb_dummy);
+
+        try {
+//            Document doc = Jsoup.connect("https://www.visayanelectric.com/page.html?main=clients&sub1=your%20bill&sub2=Feb2020AveRate").get();
+//            Elements ele = doc.select("div.left_content");
+//            String html = ele.toString();
+//            String mime = "text/html";
+//            String encoding = "utf-8";
+//            dummy.loadData(html, mime, encoding);
+              dummy.loadUrl("https://www.visayanelectric.com/page.html?main=clients&sub1=your%20bill&sub2=Feb2020AveRate");
+        } catch (Exception e) {
+            e.printStackTrace();
+            dummy.setVisibility(View.INVISIBLE);
+        }
 
         setupChart();
         return root;

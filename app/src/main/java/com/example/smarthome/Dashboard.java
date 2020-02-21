@@ -27,12 +27,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
+    private ImageView logo;
+    private Toolbar toolbar;
 
     private TextView username;
 
@@ -40,13 +43,14 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         navigationView.setNavigationItemSelectedListener(this);
+        logo = findViewById(R.id.img_logo);
     }
 
     @Override
@@ -60,8 +64,10 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
+        logo.setVisibility(View.INVISIBLE);
         switch (id) {
             case R.id.nav_home:
+                toolbar.setTitle("Manual");
                 HomeFragment manual = new HomeFragment();
                 FragmentManager manager = getSupportFragmentManager();
                 drawer.closeDrawers();
@@ -70,6 +76,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         .commit();
             break;
             case R.id.nav_gallery:
+                toolbar.setTitle("Automatic");
                 GalleryFragment automate = new GalleryFragment();
                 FragmentManager manager1 = getSupportFragmentManager();
                 drawer.closeDrawers();
@@ -78,6 +85,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         .commit();
             break;
             case R.id.nav_share:
+                toolbar.setTitle("Power Consumption");
                 ShareFragment powercon = new ShareFragment();
                 FragmentManager manager2 = getSupportFragmentManager();
                 drawer.closeDrawers();
@@ -86,6 +94,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         .commit();
             break;
             case R.id.nav_send:
+                toolbar.setTitle("Consumption Graph");
                 SendFragment congraph = new SendFragment();
                 FragmentManager manager3 = getSupportFragmentManager();
                 drawer.closeDrawers();

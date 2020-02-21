@@ -16,6 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -38,6 +41,7 @@ public class HomeFragment extends Fragment {
     private DatabaseReference automatic;
     private DatabaseReference outlet4_auto;
     private DatabaseReference manual;
+    private DatabaseReference sensor_start, sensor_end;
     private String l1_automatic, l2_automatic, l3_automatic, outlet4_automatic;
 
     public HomeFragment () {}
@@ -47,6 +51,7 @@ public class HomeFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_control, container, false);
 
         initializeObjects();
+        setupListener();
 
         return root;
     }
@@ -75,8 +80,6 @@ public class HomeFragment extends Fragment {
         getOutlet2_Manual();
         getOutlet3_Manual();
         getOutlet4_Manual();
-
-        setupListener();
     }
 
     public void getLight1_Automatic() {
