@@ -119,7 +119,7 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    if (l2_manual.equals("on")) {
+                    if (l2_manual != null && l2_manual.equals("on")) {
                         Toast.makeText(getActivity(),"Set Light2 Manual to off.",Toast.LENGTH_SHORT).show();
                         manual.child("Light2").setValue("off");
                     }
@@ -134,7 +134,7 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    if (l3_manual.equals("on")) {
+                    if (l3_manual != null && l3_manual.equals("on")) {
                         Toast.makeText(getActivity(),"Set Light3 Manual to off.",Toast.LENGTH_SHORT).show();
                         manual.child("Light3").setValue("off");
                     }

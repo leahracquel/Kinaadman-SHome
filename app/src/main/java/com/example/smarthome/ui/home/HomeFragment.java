@@ -258,7 +258,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    if (l1_automatic.equals("on")) {
+                    if (l1_automatic != null && l1_automatic.equals("on")) {
                         Toast.makeText(getActivity(),"Set Light1 Automate to off.",Toast.LENGTH_SHORT).show();
                         automatic.child("Light1").setValue("off");
                     }
@@ -273,7 +273,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    if (l2_automatic.equals("on")) {
+                    if (l2_automatic != null && l2_automatic.equals("on")) {
                         Toast.makeText(getActivity(),"Set Light2 Automate to off.",Toast.LENGTH_SHORT).show();
                         automatic.child("Light2").setValue("off");
                     }
@@ -288,7 +288,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    if (l3_automatic.equals("on")) {
+                    if (l3_automatic != null && l3_automatic.equals("on")) {
                         Toast.makeText(getActivity(),"Set Light3 Automate to off.",Toast.LENGTH_SHORT).show();
                         automatic.child("Light3").setValue("off");
                     }
