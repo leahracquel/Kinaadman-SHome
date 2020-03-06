@@ -69,9 +69,6 @@ public class HomeFragment extends Fragment {
         automatic = FirebaseDatabase.getInstance().getReference("AutoMode");
         outlet4_auto = FirebaseDatabase.getInstance().getReference("AutoMode").child("Outlet4");
 
-        getLight1_Automatic();
-        getLight2_Automatic();
-        getLight3_Automatic();
         getOutlet4_Automatic();
         getLight1_Manual();
         getLight2_Manual();
@@ -80,45 +77,6 @@ public class HomeFragment extends Fragment {
         getOutlet2_Manual();
         getOutlet3_Manual();
         getOutlet4_Manual();
-    }
-
-    public void getLight1_Automatic() {
-
-        automatic.child("Light1").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                l1_automatic = dataSnapshot.getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-    public void getLight2_Automatic() {
-
-        automatic.child("Light2").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                l2_automatic = dataSnapshot.getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-    public void getLight3_Automatic() {
-
-        automatic.child("Light3").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                l3_automatic = dataSnapshot.getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
     }
 
     public void getOutlet4_Automatic() {
@@ -258,10 +216,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    if (l1_automatic != null && l1_automatic.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Light1 Automate to off.",Toast.LENGTH_SHORT).show();
-                        automatic.child("Light1").setValue("off");
-                    }
                     manual.child("Light1").setValue("on");
                 } else {
                     manual.child("Light1").setValue("off");
@@ -273,10 +227,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    if (l2_automatic != null && l2_automatic.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Light2 Automate to off.",Toast.LENGTH_SHORT).show();
-                        automatic.child("Light2").setValue("off");
-                    }
                     manual.child("Light2").setValue("on");
                 } else {
                     manual.child("Light2").setValue("off");
@@ -288,10 +238,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    if (l3_automatic != null && l3_automatic.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Light3 Automate to off.",Toast.LENGTH_SHORT).show();
-                        automatic.child("Light3").setValue("off");
-                    }
                     manual.child("Light3").setValue("on");
                 } else {
                     manual.child("Light3").setValue("off");

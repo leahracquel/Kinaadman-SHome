@@ -37,14 +37,10 @@ public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
     private View root;
-    private Switch light1;
-    private Switch light2;
-    private Switch light3;
     private Switch outlet4;
     private DatabaseReference automatic;
     private DatabaseReference manual;
     private DatabaseReference outlet4_auto;
-    private String l1_manual, l2_manual, l3_manual;
     private String outlet4_manual;
     private EditText starttime;
     private EditText endtime;
@@ -73,9 +69,6 @@ public class GalleryFragment extends Fragment {
     }
 
     public void initializeObjects() {
-        light1 = root.findViewById(R.id.sw_al1);
-        light2 = root.findViewById(R.id.sw_al2);
-        light3 = root.findViewById(R.id.sw_al3);
         outlet4 = root.findViewById(R.id.sw_aoutlet4);
         lbl_day = root.findViewById(R.id.textView31);
         lbl_endtime = root.findViewById(R.id.textView30);
@@ -89,62 +82,11 @@ public class GalleryFragment extends Fragment {
         automatic = FirebaseDatabase.getInstance().getReference("AutoMode");
         outlet4_auto = FirebaseDatabase.getInstance().getReference("AutoMode").child("Outlet4");
 
-        getLight1_Automate();
-        getLight2_Automate();
-        getLight3_Automate();
         getOutlet4_Automate();
-        getLight1_Manual();
-        getLight2_Manual();
-        getLight3_Manual();
         getOutlet4_Manual();
     }
 
     public void setupListener() {
-        light1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if (l1_manual != null && l1_manual.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Light1 Manual to off.",Toast.LENGTH_SHORT).show();
-                        manual.child("Light1").setValue("off");
-                    }
-                    automatic.child("Light1").setValue("on");
-                } else {
-                    automatic.child("Light1").setValue("off");
-                }
-            }
-        });
-
-        light2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if (l2_manual != null && l2_manual.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Light2 Manual to off.",Toast.LENGTH_SHORT).show();
-                        manual.child("Light2").setValue("off");
-                    }
-                    automatic.child("Light2").setValue("on");
-                } else {
-                    automatic.child("Light2").setValue("off");
-                }
-            }
-        });
-
-        light3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    if (l3_manual != null && l3_manual.equals("on")) {
-                        Toast.makeText(getActivity(),"Set Light3 Manual to off.",Toast.LENGTH_SHORT).show();
-                        manual.child("Light3").setValue("off");
-                    }
-                    automatic.child("Light3").setValue("on");
-                } else {
-                    automatic.child("Light3").setValue("off");
-                }
-            }
-        });
-
         outlet4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -161,7 +103,6 @@ public class GalleryFragment extends Fragment {
                     day.setVisibility(View.VISIBLE);
                     set.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(getActivity(),"Set Outlet4 Automate to off.",Toast.LENGTH_SHORT).show();
                     outlet4_auto.child("Set_Status").setValue("off");
                 }
             }
@@ -177,7 +118,6 @@ public class GalleryFragment extends Fragment {
                 time_Picker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        outlet_start = hourOfDay+":"+minute;
                         starttime.setText(hourOfDay+" : "+minute);
                     }
                 },hour,minute,true);
@@ -196,7 +136,6 @@ public class GalleryFragment extends Fragment {
                 time_Picker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        outlet_end = hourOfDay+":"+minute;
                         endtime.setText(hourOfDay+" : "+minute);
                     }
                 },hour,minute,true);
@@ -208,63 +147,12 @@ public class GalleryFragment extends Fragment {
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                outlet4_auto.child("Set_Day").setValue(day.getSelectedItem().toString());
-                outlet4_auto.child("Set_StartTime").setValue(outlet_start);
-                outlet4_auto.child("Set_EndTime").setValue(outlet_end);
+                outlet4_auto.child("Set_DayOfWeek").setValue(day.getSelectedItem().toString());
+                outlet4_auto.child("Set_StartTime").setValue(starttime.getText().toString());
+                outlet4_auto.child("Set_EndTime").setValue(endtime.getText().toString());
                 outlet4_auto.child("Set_Status").setValue("on");
                 Toast.makeText(getActivity(),"Automated time set.",Toast.LENGTH_SHORT).show();
             }
-        });
-    }
-
-    public void getLight1_Automate() {
-
-        automatic.child("Light1").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue().toString().equals("on")) {
-                    light1.setChecked(true);
-                } else {
-                    light1.setChecked(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-    public void getLight2_Automate() {
-
-        automatic.child("Light2").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue().toString().equals("on")) {
-                    light2.setChecked(true);
-                } else {
-                    light2.setChecked(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-    public void getLight3_Automate() {
-
-        automatic.child("Light3").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue().toString().equals("on")) {
-                    light3.setChecked(true);
-                } else {
-                    light3.setChecked(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 
@@ -298,7 +186,7 @@ public class GalleryFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
-        outlet4_auto.child("Set_Day").addValueEventListener(new ValueEventListener() {
+        outlet4_auto.child("Set_DayOfWeek").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.Days, android.R.layout.simple_spinner_item);
@@ -328,45 +216,6 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 endtime.setText(dataSnapshot.getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-    public void getLight1_Manual() {
-
-        manual.child("Light1").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                l1_manual = dataSnapshot.getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-    public void getLight2_Manual() {
-
-        manual.child("Light2").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                l2_manual = dataSnapshot.getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-    public void getLight3_Manual() {
-
-        manual.child("Light3").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                l3_manual = dataSnapshot.getValue().toString();
             }
 
             @Override
