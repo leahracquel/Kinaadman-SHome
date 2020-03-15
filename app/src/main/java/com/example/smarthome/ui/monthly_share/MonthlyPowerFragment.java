@@ -1,25 +1,12 @@
-package com.example.smarthome.ui.share;
+package com.example.smarthome.ui.monthly_share;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.smarthome.R;
-import com.example.smarthome.ui.gallery.GalleryViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,11 +16,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-public class ShareFragment extends Fragment {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
-    private ShareViewModel shareViewModel;
+public class MonthlyPowerFragment extends Fragment {
+
+    private MonthlyFragmentViewModel shareViewModel;
     private View root;
     private DatabaseReference energy_consumption;
     private DatabaseReference time_consumed;
@@ -49,12 +41,12 @@ public class ShareFragment extends Fragment {
     private String current_date;
     private ArrayList<Double> energy, duration, power, current;
 
-    public ShareFragment() {}
+    public MonthlyPowerFragment() {}
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         shareViewModel =
-                ViewModelProviders.of(this).get(ShareViewModel.class);
+                ViewModelProviders.of(this).get(MonthlyFragmentViewModel.class);
         root = inflater.inflate(R.layout.fragment_powerconsumption, container, false);
         shareViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -70,8 +62,8 @@ public class ShareFragment extends Fragment {
 
     public void initializeObjects() {
         Calendar cld = Calendar.getInstance();
-        cld.add(Calendar.DATE, -3);
-        SimpleDateFormat curr_date = new SimpleDateFormat("M-dd-yyyy");
+        cld.add(Calendar.DATE, -1);
+        SimpleDateFormat curr_date = new SimpleDateFormat("MMMM");
         current_date = curr_date.format(cld.getTime());
 
         energy_consumption = FirebaseDatabase.getInstance().getReference("EnergyConsumption_Daily");
@@ -151,7 +143,7 @@ public class ShareFragment extends Fragment {
                         energy.add(Double.valueOf(snapshot.getValue().toString()));
                     }
 
-                    veco_rating.child("DailyBill").child(current_date).setValue(total_kwh);
+                    veco_rating.child("TotalEnergy").child(current_date).setValue(total_kwh);
 
                     bill.setText(String.format("%5f",total_kwh));
                     displayEnergy();
@@ -170,12 +162,9 @@ public class ShareFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    Double total_duration = 0.0;
                     for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
-                        total_duration = total_duration + Double.valueOf(snapshot.getValue().toString());
                         duration.add(Double.valueOf(snapshot.getValue().toString()));
                     }
-                    veco_rating.child("DailyDuration").child(current_date).setValue(total_duration);
                     displayDuration();
                 }
             }
@@ -227,13 +216,9 @@ public class ShareFragment extends Fragment {
 
     public void computePower() {
 
-        Double total_power = 0.0;
         for(int i=0; i<6; i++) {
-            total_power = total_power + Double.valueOf(energy.get(i)/duration.get(i));
             power.add(energy.get(i)/duration.get(i));
         }
-
-        veco_rating.child("DailyPower").child(current_date).setValue(total_power);
         l1_power.setText(String.format("%.3f",energy.get(0)/duration.get(0)));
         l2_power.setText(String.format("%.3f",energy.get(1)/duration.get(1)));
         l3_power.setText(String.format("%.3f",energy.get(2)/duration.get(2)));
@@ -242,17 +227,10 @@ public class ShareFragment extends Fragment {
         o3_power.setText(String.format("%.3f",energy.get(5)/duration.get(5)));
         o4_power.setText(String.format("%.3f",energy.get(6)/duration.get(6)));
 
-        computeCurrent(power);
+        computeCurrent();
     }
 
-    public void computeCurrent(ArrayList<Double> power) {
-
-        Double total_current = 0.0;
-        for(int i=0; i<6; i++) {
-            total_current = total_current + (Double.valueOf(power.get(i))/220);
-        }
-
-        veco_rating.child("DailyCurrent").child(current_date).setValue(total_current);
+    public void computeCurrent() {
 
         l1_current.setText(String.format("%.5f",Double.valueOf(l1_power.getText().toString())/220));
         l2_current.setText(String.format("%.5f",Double.valueOf(l2_power.getText().toString())/220));

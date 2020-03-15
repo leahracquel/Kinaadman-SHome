@@ -1,19 +1,25 @@
-package com.example.smarthome.ui.send;
+package com.example.smarthome.ui.monthlyconsump;
 
-import android.accessibilityservice.GestureDescription;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import com.example.smarthome.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -25,32 +31,9 @@ import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 
-import com.example.smarthome.R;
-import com.example.smarthome.ui.Education;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
+public class MonthlyGraphFragment extends Fragment {
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static android.content.ContentValues.TAG;
-
-public class SendFragment extends Fragment {
-
-    private SendViewModel sendViewModel;
+    private MonthlyGraphViewModel sendViewModel;
     private LineChartView lineChartView;
     private View root;
     private DatabaseReference totalkwh, node_parent;
@@ -61,13 +44,14 @@ public class SendFragment extends Fragment {
     private Line line,linedummy;
     private Calendar cld;
     private SimpleDateFormat curr_date;
+    private Double monthly_bill;
 
-    public SendFragment () {}
+    public MonthlyGraphFragment() {}
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         sendViewModel =
-                ViewModelProviders.of(this).get(SendViewModel.class);
+                ViewModelProviders.of(this).get(MonthlyGraphViewModel.class);
         root = inflater.inflate(R.layout.fragment_consumptiongraph, container, false);
         sendViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -93,6 +77,7 @@ public class SendFragment extends Fragment {
         cld = Calendar.getInstance();
         totalkwh = FirebaseDatabase.getInstance().getReference("DailyBill");
         node_parent = FirebaseDatabase.getInstance().getReference("MonthlyBill");
+        monthly_bill = 0.0;
     }
 
     public void setupListeners() {
@@ -103,10 +88,8 @@ public class SendFragment extends Fragment {
 
         cld.add(Calendar.DATE, -2);
         curr_date = new SimpleDateFormat("MMMM");
-        int days_month = cld.getActualMaximum(Calendar.DAY_OF_MONTH);
-        for (int i=1; i<= Integer.valueOf(split_current_date[1]); i++){
+        for (int i=1; i<= Integer.valueOf(split_current_date[0]); i++){
             axisData.add(""+i);
-            yAxisDatadummy.add(1.0f);
             yAxisData.add(0.0f);
         }
 
@@ -114,21 +97,41 @@ public class SendFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Double monthly_bill = 0.0;
+
                 for(DataSnapshot dsp:dataSnapshot.getChildren()) {
                     String[] fb_split_date = dsp.getKey().split("-");
                     if(fb_split_date[0].equals(split_current_date[0])) {
-                        for (int i=0;i<axisData.size();i++) {
+                        for (int i=0;i<Integer.valueOf(split_current_date[1]);i++) {
                             if (i + 1 == Integer.valueOf(fb_split_date[1])) {
                                 if(Float.valueOf(dsp.getValue().toString()) != 0.0f){
                                     monthly_bill = monthly_bill + Double.valueOf(dsp.getValue().toString());
-                                    yAxisData.set(i,Float.valueOf(dsp.getValue().toString()));
                                 }
                             }
                         }
                     }
                 }
                 node_parent.child(split_current_date[0]).setValue(monthly_bill);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        node_parent.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    for (int i = 0; i < axisData.size(); i++) {
+                        if (i + 1 == Integer.valueOf(dsp.getKey())) {
+                            if (Float.valueOf(dsp.getValue().toString()) != 0.0f) {
+                                yAxisData.set(i, Float.valueOf(dsp.getValue().toString()));
+                            }
+                        }
+                    }
+                }
                 setupChart();
             }
 
@@ -160,14 +163,12 @@ public class SendFragment extends Fragment {
 
         List<Line> lines = new ArrayList<Line>();
         lines.add(line);
-        lines.add(linedummy);
 
         LineChartData data = new LineChartData();
         data.setLines(lines);
 
         Axis axis = new Axis();
         axis.setValues(axisValues);
-        axis.setName(curr_date.format(cld.getTime()));
         axis.setTextSize(16);
         axis.setTextColor(Color.parseColor("#03A9F4"));
         data.setAxisXBottom(axis);
@@ -180,7 +181,7 @@ public class SendFragment extends Fragment {
 
         lineChartView.setLineChartData(data);
         Viewport viewport = new Viewport(lineChartView.getMaximumViewport());
-        viewport.top = 30;
+        viewport.top = Float.valueOf(monthly_bill.toString()) + 1;
         lineChartView.setMaximumViewport(viewport);
         lineChartView.setCurrentViewport(viewport);
     }

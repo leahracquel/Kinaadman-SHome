@@ -41,8 +41,8 @@ public class HomeFragment extends Fragment {
     private DatabaseReference automatic;
     private DatabaseReference outlet4_auto;
     private DatabaseReference manual;
-    private DatabaseReference sensor_start, sensor_end;
-    private String l1_automatic, l2_automatic, l3_automatic, outlet4_automatic;
+    private DatabaseReference mode_status;
+    private String outlet4_automatic;
 
     public HomeFragment () {}
 
@@ -68,6 +68,7 @@ public class HomeFragment extends Fragment {
         manual = FirebaseDatabase.getInstance().getReference("ManualMode");
         automatic = FirebaseDatabase.getInstance().getReference("AutoMode");
         outlet4_auto = FirebaseDatabase.getInstance().getReference("AutoMode").child("Outlet4");
+        mode_status = FirebaseDatabase.getInstance().getReference();
 
         getOutlet4_Automatic();
         getLight1_Manual();
@@ -217,6 +218,8 @@ public class HomeFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     manual.child("Light1").setValue("on");
+                    mode_status.child("ManualMode_Status").setValue("on");
+                    mode_status.child("AutoMode_Status").setValue("off");
                 } else {
                     manual.child("Light1").setValue("off");
                 }
@@ -228,6 +231,8 @@ public class HomeFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     manual.child("Light2").setValue("on");
+                    mode_status.child("ManualMode_Status").setValue("on");
+                    mode_status.child("AutoMode_Status").setValue("off");
                 } else {
                     manual.child("Light2").setValue("off");
                 }
@@ -239,6 +244,8 @@ public class HomeFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     manual.child("Light3").setValue("on");
+                    mode_status.child("ManualMode_Status").setValue("on");
+                    mode_status.child("AutoMode_Status").setValue("off");
                 } else {
                     manual.child("Light3").setValue("off");
                 }
@@ -250,6 +257,8 @@ public class HomeFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     manual.child("Outlet1").setValue("on");
+                    mode_status.child("ManualMode_Status").setValue("on");
+                    mode_status.child("AutoMode_Status").setValue("off");
                 } else {
                     manual.child("Outlet1").setValue("off");
                 }
@@ -261,6 +270,8 @@ public class HomeFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     manual.child("Outlet2").setValue("on");
+                    mode_status.child("ManualMode_Status").setValue("on");
+                    mode_status.child("AutoMode_Status").setValue("off");
                 } else {
                     manual.child("Outlet2").setValue("off");
                 }
@@ -272,6 +283,8 @@ public class HomeFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     manual.child("Outlet3").setValue("on");
+                    mode_status.child("ManualMode_Status").setValue("on");
+                    mode_status.child("AutoMode_Status").setValue("off");
                 } else {
                     manual.child("Outlet3").setValue("off");
                 }
@@ -285,8 +298,10 @@ public class HomeFragment extends Fragment {
                     if (outlet4_automatic != null && outlet4_automatic.equals("on")) {
                         Toast.makeText(getActivity(),"Set Outlet4 Automate to off.",Toast.LENGTH_SHORT).show();
                         outlet4_auto.child("Set_Status").setValue("off");
+                        mode_status.child("AutoMode_Status").setValue("off");
                     }
                     manual.child("Outlet4").setValue("on");
+                    mode_status.child("ManualMode_Status").setValue("on");
                 } else {
                     manual.child("Outlet4").setValue("off");
                 }

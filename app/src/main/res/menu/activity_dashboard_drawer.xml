@@ -18,10 +18,16 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:title="Power Consumption" />
+                android:title="Daily Power Consumption" />
+            <item
+                android:id="@+id/nav_monthly_share"
+                android:title="Monthly Power Consumption" />
             <item
                 android:id="@+id/nav_send"
-                android:title="Consumption Graph" />
+                android:title="Daily Consumption Graph" />
+            <item
+                android:id="@+id/nav_monthly"
+                android:title="Monthly Consumption Graph" />
         </menu>
     </item>
 
