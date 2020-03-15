@@ -41,6 +41,7 @@ public class GalleryFragment extends Fragment {
     private DatabaseReference automatic;
     private DatabaseReference manual;
     private DatabaseReference outlet4_auto;
+    private DatabaseReference mode_status;
     private String outlet4_manual;
     private EditText starttime;
     private EditText endtime;
@@ -81,6 +82,7 @@ public class GalleryFragment extends Fragment {
         manual = FirebaseDatabase.getInstance().getReference("ManualMode");
         automatic = FirebaseDatabase.getInstance().getReference("AutoMode");
         outlet4_auto = FirebaseDatabase.getInstance().getReference("AutoMode").child("Outlet4");
+        mode_status = FirebaseDatabase.getInstance().getReference();
 
         getOutlet4_Automate();
         getOutlet4_Manual();
@@ -102,8 +104,17 @@ public class GalleryFragment extends Fragment {
                     endtime.setVisibility(View.VISIBLE);
                     day.setVisibility(View.VISIBLE);
                     set.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity(),"Press Set to start Automate mode.",Toast.LENGTH_LONG).show();
                 } else {
                     outlet4_auto.child("Set_Status").setValue("off");
+                    lbl_day.setVisibility(View.INVISIBLE);
+                    lbl_endtime.setVisibility(View.INVISIBLE);
+                    lbl_starttime.setVisibility(View.INVISIBLE);
+                    starttime.setVisibility(View.INVISIBLE);
+                    endtime.setVisibility(View.INVISIBLE);
+                    day.setVisibility(View.INVISIBLE);
+                    set.setVisibility(View.INVISIBLE);
+                    Toast.makeText(getActivity(),"Set Outlet4 Automate to off.",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -151,6 +162,8 @@ public class GalleryFragment extends Fragment {
                 outlet4_auto.child("Set_StartTime").setValue(starttime.getText().toString());
                 outlet4_auto.child("Set_EndTime").setValue(endtime.getText().toString());
                 outlet4_auto.child("Set_Status").setValue("on");
+                mode_status.child("ManualMode_Status").setValue("off");
+                mode_status.child("AutoMode_Status").setValue("on");
                 Toast.makeText(getActivity(),"Automated time set.",Toast.LENGTH_SHORT).show();
             }
         });
@@ -170,6 +183,8 @@ public class GalleryFragment extends Fragment {
                     starttime.setVisibility(View.VISIBLE);
                     endtime.setVisibility(View.VISIBLE);
                     day.setVisibility(View.VISIBLE);
+                    mode_status.child("ManualMode_Status").setValue("off");
+                    mode_status.child("AutoMode_Status").setValue("on");
                 } else {
                     outlet4.setChecked(false);
                     lbl_day.setVisibility(View.INVISIBLE);
@@ -179,6 +194,7 @@ public class GalleryFragment extends Fragment {
                     starttime.setVisibility(View.INVISIBLE);
                     endtime.setVisibility(View.INVISIBLE);
                     day.setVisibility(View.INVISIBLE);
+                    mode_status.child("AutoMode_Status").setValue("off");
                 }
             }
 

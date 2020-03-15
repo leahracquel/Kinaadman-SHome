@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.example.smarthome.ui.gallery.GalleryFragment;
 import com.example.smarthome.ui.home.HomeFragment;
+import com.example.smarthome.ui.monthly_share.MonthlyPowerFragment;
+import com.example.smarthome.ui.monthlyconsump.MonthlyGraphFragment;
 import com.example.smarthome.ui.send.SendFragment;
 import com.example.smarthome.ui.share.ShareFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -91,7 +93,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         .commit();
             break;
             case R.id.nav_share:
-                toolbar.setTitle("Power Consumption");
+                toolbar.setTitle("Daily Power Consumption");
                 ShareFragment powercon = new ShareFragment();
                 FragmentManager manager2 = getSupportFragmentManager();
                 drawer.closeDrawers();
@@ -99,13 +101,31 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         .replace(R.id.layout, powercon)
                         .commit();
             break;
+            case R.id.nav_monthly_share:
+                toolbar.setTitle("Monthly Power Graph");
+                MonthlyPowerFragment mpowercon = new MonthlyPowerFragment();
+                FragmentManager manager4 = getSupportFragmentManager();
+                drawer.closeDrawers();
+                manager4.beginTransaction()
+                        .replace(R.id.layout, mpowercon)
+                        .commit();
+                break;
             case R.id.nav_send:
-                toolbar.setTitle("Consumption Graph");
+                toolbar.setTitle("Daily Consumption Graph");
                 SendFragment congraph = new SendFragment();
                 FragmentManager manager3 = getSupportFragmentManager();
                 drawer.closeDrawers();
                 manager3.beginTransaction()
                         .replace(R.id.layout, congraph)
+                        .commit();
+            break;
+            case R.id.nav_monthly:
+                toolbar.setTitle("Monthly Consumption Graph");
+                MonthlyGraphFragment mcongraph = new MonthlyGraphFragment();
+                FragmentManager manager5 = getSupportFragmentManager();
+                drawer.closeDrawers();
+                manager5.beginTransaction()
+                        .replace(R.id.layout, mcongraph)
                         .commit();
             break;
         }

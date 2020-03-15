@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Monthly Consumption"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.213" />
+
+    <TextView
+        android:id="@+id/txt_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.151" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="374dp"
+        android:layout_height="265dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:width="0dp"
+                android:text="Device"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:width="0dp"
+                android:text="Current [A]"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:width="0dp"
+                android:text="Power [kW]"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:width="0dp"
+                android:text="Duration [hr]"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text="Energy Consume"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text="Terrace"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l1_current"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l1_power"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l1_duration"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l1_energy"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text="Living Room"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l2_current"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l2_power"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l2_duration"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l2_energy"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text="Dining Room"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l3_current"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l3_power"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l3_duration"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/l3_energy"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text="Outlet 1"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o1_current"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o1_power"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o1_duration"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o1_energy"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text="Outlet 2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o2_current"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o2_power"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o2_duration"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o2_energy"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text="Outlet 3"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o3_current"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o3_power"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o3_duration"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o3_energy"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text="Outlet 4"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o4_current"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o4_power"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o4_duration"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/o4_energy"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:width="0dp"
+                android:text="Voltage [V]"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:width="0dp"
+                android:text="220"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:width="0dp"
+                android:text="VECO Rating (Residential) [Php]"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/kwph"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:width="0dp"
+                android:text="Electricity Bill [Php]"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bill"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:width="0dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
