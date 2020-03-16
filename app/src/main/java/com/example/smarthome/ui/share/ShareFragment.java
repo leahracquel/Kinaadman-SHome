@@ -1,6 +1,7 @@
 package com.example.smarthome.ui.share;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +38,8 @@ public class ShareFragment extends Fragment {
     private View root;
     private DatabaseReference energy_consumption;
     private DatabaseReference time_consumed;
-    private DatabaseReference veco_rating;
-    private TextView txt_date, bill, rating;
+    private DatabaseReference veco_rating, node_parent;
+    private TextView txt_date, bill, estimate_bill, rating;
     private TextView l1_current, l1_power, l1_duration, l1_energy;
     private TextView l2_current, l2_power, l2_duration, l2_energy;
     private TextView l3_current, l3_power, l3_duration, l3_energy;
@@ -48,6 +49,9 @@ public class ShareFragment extends Fragment {
     private TextView o4_current, o4_power, o4_duration, o4_energy;
     private String current_date;
     private ArrayList<Double> energy, duration, power, current;
+    private String[] split_date;
+    private Double monthly_bill;
+    private Double total_kwh;
 
     public ShareFragment() {}
 
@@ -70,22 +74,27 @@ public class ShareFragment extends Fragment {
 
     public void initializeObjects() {
         Calendar cld = Calendar.getInstance();
-        cld.add(Calendar.DATE, -3);
+        cld.add(Calendar.DATE, -1);
         SimpleDateFormat curr_date = new SimpleDateFormat("M-dd-yyyy");
         current_date = curr_date.format(cld.getTime());
+        split_date = current_date.split("-");
 
         energy_consumption = FirebaseDatabase.getInstance().getReference("EnergyConsumption_Daily");
         veco_rating = FirebaseDatabase.getInstance().getReference();
         time_consumed = FirebaseDatabase.getInstance().getReference("Output_TimeConsumed_Daily");
+        node_parent = FirebaseDatabase.getInstance().getReference("MonthlyBill");
 
         txt_date = root.findViewById(R.id.txt_date);
         bill = root.findViewById(R.id.bill);
+        estimate_bill = root.findViewById(R.id.estimate_bill);
         rating = root.findViewById(R.id.kwph);
         txt_date.setText(current_date);
         energy = new ArrayList<>();
         duration = new ArrayList<>();
         power = new ArrayList<>();
         current = new ArrayList<>();
+        monthly_bill = 0.0;
+        total_kwh = 0.0;
 
         l1_current = root.findViewById(R.id.l1_current);
         l1_power = root.findViewById(R.id.l1_power);
@@ -144,7 +153,6 @@ public class ShareFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if(dataSnapshot.exists()) {
-                    Double total_kwh = 0.0;
                     for (DataSnapshot snapshot:dataSnapshot.getChildren())
                     {
                         total_kwh = total_kwh + Double.valueOf(snapshot.getValue().toString());
@@ -156,6 +164,30 @@ public class ShareFragment extends Fragment {
                     bill.setText(String.format("%5f",total_kwh));
                     displayEnergy();
                 }
+                computeTotal();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void computeTotal () {
+        node_parent.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dsp:dataSnapshot.getChildren()) {
+                    String[] fb_split_date = dsp.getKey().split("-");
+                    if(fb_split_date[0].equals(split_date[0])) {
+                        if(Float.valueOf(dsp.getValue().toString()) != 0.0f){
+                            monthly_bill = monthly_bill + Double.valueOf(dsp.getValue().toString());
+                        }
+                    }
+                }
+                node_parent.child(split_date[0]).setValue(monthly_bill);
+                estimate_bill.setText(monthly_bill.toString());
             }
 
             @Override

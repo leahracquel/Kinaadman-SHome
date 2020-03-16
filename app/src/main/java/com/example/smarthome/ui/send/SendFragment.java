@@ -1,16 +1,10 @@
 package com.example.smarthome.ui.send;
 
-import android.accessibilityservice.GestureDescription;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -26,27 +20,16 @@ import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 
 import com.example.smarthome.R;
-import com.example.smarthome.ui.Education;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static android.content.ContentValues.TAG;
 
 public class SendFragment extends Fragment {
 
@@ -160,7 +143,7 @@ public class SendFragment extends Fragment {
 
         List<Line> lines = new ArrayList<Line>();
         lines.add(line);
-        lines.add(linedummy);
+//        lines.add(linedummy);
 
         LineChartData data = new LineChartData();
         data.setLines(lines);

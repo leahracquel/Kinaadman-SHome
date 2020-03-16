@@ -101,15 +101,15 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         .replace(R.id.layout, powercon)
                         .commit();
             break;
-            case R.id.nav_monthly_share:
-                toolbar.setTitle("Monthly Power Graph");
-                MonthlyPowerFragment mpowercon = new MonthlyPowerFragment();
-                FragmentManager manager4 = getSupportFragmentManager();
-                drawer.closeDrawers();
-                manager4.beginTransaction()
-                        .replace(R.id.layout, mpowercon)
-                        .commit();
-                break;
+//            case R.id.nav_monthly_share:
+//                toolbar.setTitle("Monthly Power Graph");
+//                MonthlyPowerFragment mpowercon = new MonthlyPowerFragment();
+//                FragmentManager manager4 = getSupportFragmentManager();
+//                drawer.closeDrawers();
+//                manager4.beginTransaction()
+//                        .replace(R.id.layout, mpowercon)
+//                        .commit();
+//                break;
             case R.id.nav_send:
                 toolbar.setTitle("Daily Consumption Graph");
                 SendFragment congraph = new SendFragment();

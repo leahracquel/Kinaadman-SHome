@@ -18,10 +18,7 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:title="Daily Power Consumption" />
-            <item
-                android:id="@+id/nav_monthly_share"
-                android:title="Monthly Power Consumption" />
+                android:title="Power Consumption" />
             <item
                 android:id="@+id/nav_send"
                 android:title="Daily Consumption Graph" />
