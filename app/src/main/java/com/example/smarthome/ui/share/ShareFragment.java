@@ -37,7 +37,7 @@ public class ShareFragment extends Fragment {
     private ShareViewModel shareViewModel;
     private View root;
     private DatabaseReference energy_consumption;
-    private DatabaseReference time_consumed;
+    private DatabaseReference time_consumed, totalkwh1;
     private DatabaseReference veco_rating, node_parent;
     private TextView txt_date, bill, estimate_bill, rating;
     private TextView l1_current, l1_power, l1_duration, l1_energy;
@@ -83,6 +83,7 @@ public class ShareFragment extends Fragment {
         veco_rating = FirebaseDatabase.getInstance().getReference();
         time_consumed = FirebaseDatabase.getInstance().getReference("Output_TimeConsumed_Daily");
         node_parent = FirebaseDatabase.getInstance().getReference("MonthlyBill");
+        totalkwh1 = FirebaseDatabase.getInstance().getReference("DailyBill");
 
         txt_date = root.findViewById(R.id.txt_date);
         bill = root.findViewById(R.id.bill);
@@ -165,6 +166,37 @@ public class ShareFragment extends Fragment {
                     displayEnergy();
                 }
                 computeTotal();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        Calendar cld = Calendar.getInstance();
+        SimpleDateFormat actual_date = new SimpleDateFormat("M-dd-yyyy");
+        String current_date = actual_date.format(cld.getTime());
+        final String[] split_current_date = current_date.split("-");
+
+        totalkwh1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Double monthly_bill = 0.0;
+                for(DataSnapshot dsp:dataSnapshot.getChildren()) {
+                    String[] fb_split_date = dsp.getKey().split("-");
+                    if(fb_split_date[0].equals(split_current_date[0])) {
+                        for (int i=0;i<Integer.valueOf(split_current_date[1]);i++) {
+                            if (i + 1 == Integer.valueOf(fb_split_date[1])) {
+                                if(Float.valueOf(dsp.getValue().toString()) != 0.0f){
+                                    monthly_bill = monthly_bill + Double.valueOf(dsp.getValue().toString());
+                                }
+                            }
+                        }
+                    }
+                }
+                node_parent.child(split_current_date[0]).setValue(monthly_bill);
             }
 
             @Override

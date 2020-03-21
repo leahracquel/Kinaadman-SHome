@@ -37,7 +37,7 @@ public class MonthlyGraphFragment extends Fragment {
     private LineChartView lineChartView;
     private View root;
     private DatabaseReference totalkwh, node_parent;
-    private ArrayList<String> axisData;
+    private String[] axisData;
     private ArrayList<Float> yAxisData,yAxisDatadummy;
     private List yAxisValues,yAxisValuesdummy;
     private List axisValues;
@@ -71,7 +71,8 @@ public class MonthlyGraphFragment extends Fragment {
         yAxisValues = new ArrayList();
         yAxisValuesdummy = new ArrayList();
         axisValues = new ArrayList();
-        axisData = new ArrayList<>();
+        axisData = new String[] {"January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"};
         yAxisData = new ArrayList<>();
         yAxisDatadummy = new ArrayList<>();
         cld = Calendar.getInstance();
@@ -89,7 +90,6 @@ public class MonthlyGraphFragment extends Fragment {
         cld.add(Calendar.DATE, -2);
         curr_date = new SimpleDateFormat("MMMM");
         for (int i=1; i<= Integer.valueOf(split_current_date[0]); i++){
-            axisData.add(""+i);
             yAxisData.add(0.0f);
         }
 
@@ -124,7 +124,7 @@ public class MonthlyGraphFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    for (int i = 0; i < axisData.size(); i++) {
+                    for (int i = 0; i < Integer.valueOf(split_current_date[0]); i++) {
                         if (i + 1 == Integer.valueOf(dsp.getKey())) {
                             if (Float.valueOf(dsp.getValue().toString()) != 0.0f) {
                                 yAxisData.set(i, Float.valueOf(dsp.getValue().toString()));
@@ -149,8 +149,8 @@ public class MonthlyGraphFragment extends Fragment {
         line = new Line(yAxisValues).setColor(Color.parseColor("#9C27B0"));
         linedummy = new Line(yAxisValuesdummy).setColor(Color.parseColor("#77ee27"));
 
-        for (int i = 0; i < axisData.size(); i++) {
-            axisValues.add(i, new AxisValue(i).setLabel(axisData.get(i)));
+        for (int i = 0; i < axisData.length; i++) {
+            axisValues.add(i, new AxisValue(i).setLabel(axisData[i]));
         }
 
         for (int i = 0; i < yAxisData.size(); i++) {

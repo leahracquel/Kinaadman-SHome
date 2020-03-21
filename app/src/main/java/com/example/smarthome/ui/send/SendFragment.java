@@ -84,7 +84,7 @@ public class SendFragment extends Fragment {
         String current_date = actual_date.format(cld.getTime());
         final String[] split_current_date = current_date.split("-");
 
-        cld.add(Calendar.DATE, -2);
+        cld.add(Calendar.DATE, -1);
         curr_date = new SimpleDateFormat("MMMM");
         int days_month = cld.getActualMaximum(Calendar.DAY_OF_MONTH);
         for (int i=1; i<= Integer.valueOf(split_current_date[1]); i++){
@@ -163,7 +163,7 @@ public class SendFragment extends Fragment {
 
         lineChartView.setLineChartData(data);
         Viewport viewport = new Viewport(lineChartView.getMaximumViewport());
-        viewport.top = 30;
+        viewport.top = 200;
         lineChartView.setMaximumViewport(viewport);
         lineChartView.setCurrentViewport(viewport);
     }

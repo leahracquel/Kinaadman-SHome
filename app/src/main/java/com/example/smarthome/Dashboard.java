@@ -2,14 +2,13 @@ package com.example.smarthome;
 
 import android.os.Bundle;
 
+import com.example.smarthome.ui.energycomponent.EnergyComponentFragment;
 import com.example.smarthome.ui.gallery.GalleryFragment;
 import com.example.smarthome.ui.home.HomeFragment;
-import com.example.smarthome.ui.monthly_share.MonthlyPowerFragment;
 import com.example.smarthome.ui.monthlyconsump.MonthlyGraphFragment;
+import com.example.smarthome.ui.outletenergy.EnergyOutletFragment;
 import com.example.smarthome.ui.send.SendFragment;
 import com.example.smarthome.ui.share.ShareFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.MenuItem;
 import android.view.View;
@@ -17,10 +16,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -101,15 +97,24 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         .replace(R.id.layout, powercon)
                         .commit();
             break;
-//            case R.id.nav_monthly_share:
-//                toolbar.setTitle("Monthly Power Graph");
-//                MonthlyPowerFragment mpowercon = new MonthlyPowerFragment();
-//                FragmentManager manager4 = getSupportFragmentManager();
-//                drawer.closeDrawers();
-//                manager4.beginTransaction()
-//                        .replace(R.id.layout, mpowercon)
-//                        .commit();
-//                break;
+            case R.id.nav_component:
+                toolbar.setTitle("Light Consumption Graph");
+                EnergyComponentFragment mpowercon = new EnergyComponentFragment();
+                FragmentManager manager4 = getSupportFragmentManager();
+                drawer.closeDrawers();
+                manager4.beginTransaction()
+                        .replace(R.id.layout, mpowercon)
+                        .commit();
+                break;
+            case R.id.nav_outletcomponent:
+                toolbar.setTitle("Component Consumption Graph");
+                EnergyOutletFragment opowercon = new EnergyOutletFragment();
+                FragmentManager manager6 = getSupportFragmentManager();
+                drawer.closeDrawers();
+                manager6.beginTransaction()
+                        .replace(R.id.layout, opowercon)
+                        .commit();
+                break;
             case R.id.nav_send:
                 toolbar.setTitle("Daily Consumption Graph");
                 SendFragment congraph = new SendFragment();

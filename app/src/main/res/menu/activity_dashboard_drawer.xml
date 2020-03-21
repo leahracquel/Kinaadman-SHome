@@ -20,6 +20,12 @@
                 android:id="@+id/nav_share"
                 android:title="Power Consumption" />
             <item
+                android:id="@+id/nav_component"
+                android:title="Light Consumption" />
+            <item
+                android:id="@+id/nav_outletcomponent"
+                android:title="Outlet Consumption" />
+            <item
                 android:id="@+id/nav_send"
                 android:title="Daily Consumption Graph" />
             <item
